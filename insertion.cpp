@@ -1,40 +1,66 @@
 #include <iostream>
+#include<cstdlib>
 using namespace std;
-int main()
+struct node{
+    int data;
+    struct node*next ;
+};
+struct node*start=NULL,*ptr;
+int val;
+void display(){
+    ptr=start;
+    while(ptr!=NULL){
+        cout<<ptr->data<<"->";
+        ptr=ptr->next;
+    }
+    cout<<"NULL";
+}
+ void createnode()
 {
-    int arr[100];n;
-    cout<<:enter size of array ";
-    cinn>>n;
-    cout<<"enter" <<n<<' values";
-    for (int i=0; i<n;i++)
-    {
-        cin>>arr[i];
-
-    }
-    cout<<"you have entered these values ";
-    for(int i=0;i<n;i++)
-    {
-        cout<<arr[i]<<" ";
-
-    }
-    cout<<"\n enter the new value ";
-    int val;
+    cout<<"input value to insert";
     cin>>val;
-
-    cout<<"enter the position";
-    int pos;
-    cin>>pos;
-
-    for(int i=n-1; i>=pos-1;i--)
+    struct node*newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=val;
+    newnode->next=NULL;
+    if(start==NULL)
+    start=newnode;
+    else{
+        ptr=start;
+        while(ptr->next!=NULL)
+        ptr=ptr->next;
+        ptr->next=newnode;
+    }
+}
+void createnodebeg()
 {
-    arr[i+1]=arr[i];
+    cout<<"input value to insert=";
+    cin>>val;
+    struct node* newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=val;
+    newnode->next=start;
+    start=newnode;
 }
-arr[pos-1]=val;
-cout<<"after insertion final array is"
-for(int i=0;i<=n;i++)
-{
-    cout<<arr[i]<<" ";
-}
-return 0;
-}
-    
+int main () {
+    int n;
+    cout<<"number of nodes ";
+    cin>>n;
+    for(int i =0 ; i<n ; i++)
+    {
+        createnode();
+     }
+     cout<<"existing linked list is";
+     display();
+     cout<<"\nNow inserting a new value at first\n";
+     createnodebeg();
+     cout<<" after insertion at first";
+     display();
+     cout<<"\nfreeing memory....";
+     ptr=start;
+     while(ptr!=NULL){
+     struct node*nextnode = ptr->next;
+     free(ptr);
+     ptr=nextnode;
+     }
+     start = NULL;
+     return 0;
+     }
